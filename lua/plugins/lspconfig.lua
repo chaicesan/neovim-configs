@@ -1,16 +1,20 @@
 return {
     "neovim/nvim-lspconfig",
+    dependencies = { 'saghen/blink.cmp' },
     config = function() 
-        vim.lsp.config('rust_analyzer', {
-          settings = {
-            ['rust-analyzer'] = {
-              diagnostics = {
-                enable = true;
-              }
-            }
-          }
-        })
+        -- Begin Rust LSP configs
         vim.lsp.enable('rust_analyzer')
-        vim.lsp.enable('gh-actions-language-server')
+        -- End Rust LSP configs
+
+
+        -- Begin Python pyright LSP configs
+        --
+        local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+        vim.lsp.config('pyright', {
+            capabilities = capabilities,
+        })
+        vim.lsp.enable('pyright')
+        -- End Python pyright LSP configs
     end
 }
